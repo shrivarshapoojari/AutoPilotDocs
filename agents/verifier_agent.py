@@ -38,4 +38,5 @@ Write a Markdown review with the following sections:
     }
 
     response = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
+    print(response)
     return response.json()["choices"][0]["message"]["content"]

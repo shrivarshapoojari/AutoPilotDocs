@@ -3,7 +3,7 @@ from agents.perception_agent import load_input
 from agents.planning_agent import plan_documents
 from agents.execution_agent import generate_document
 from agents.verifier_agent import verify_document
-
+from agents.revision_agent import revise_document
 def sanitize_filename(filename: str) -> str:
     """
     Sanitize a string to make it safe for use as a filename.
@@ -66,10 +66,18 @@ def main():
             f.write(doc)
         print(f"✅ Document saved → {filename}")
         review = verify_document(topic, doc, data)
-        review_filename = f"docs/review/review_{topic.replace(' ', '_').lower()}.md"
+        review_filename = f"docs/review/review_{sanitize_filename(topic)}.md"
         with open(review_filename, "w", encoding="utf-8") as f:
             f.write(review)
         print(f"🔍 Review saved → {review_filename}")
+        print(f"♻️ Revising document for: {topic} based on verifier feedback...")
+
+        improved_doc = revise_document(topic, doc, review)
+        improved_filename = f"docs/improved/improved_{sanitize_filename(topic)}.md"
+        with open(improved_filename, "w", encoding="utf-8") as f:
+            f.write(improved_doc)
+
+        print(f"✅ Improved doc saved → {improved_filename}")
 
 if __name__ == "__main__":
     main()
