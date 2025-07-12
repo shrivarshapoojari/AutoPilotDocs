@@ -2,6 +2,7 @@ import re
 from agents.perception_agent import load_input
 from agents.planning_agent import plan_documents
 from agents.execution_agent import generate_document
+from agents.verifier_agent import verify_document
 
 def sanitize_filename(filename: str) -> str:
     """
@@ -64,6 +65,11 @@ def main():
         with open(filename, "w", encoding="utf-8") as f:
             f.write(doc)
         print(f"✅ Document saved → {filename}")
+        review = verify_document(topic, doc, data)
+        review_filename = f"docs/review/review_{topic.replace(' ', '_').lower()}.md"
+        with open(review_filename, "w", encoding="utf-8") as f:
+            f.write(review)
+        print(f"🔍 Review saved → {review_filename}")
 
 if __name__ == "__main__":
     main()

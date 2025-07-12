@@ -23,7 +23,8 @@ Make it clear, structured, and professional.
         """
 
         completion = client.chat.completions.create(
-            model="cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
+           
+           
             messages=[{"role": "user", "content": prompt}]
         )
         
