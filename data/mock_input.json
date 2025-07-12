@@ -1,0 +1,12 @@
+{
+  "jira_ticket": "MIG-101 | Migrate legacy payment system to Stripe",
+  "git_commits": [
+    "Removed PayPal integration",
+    "Integrated Stripe API for payments",
+    "Updated payment_service.py"
+  ],
+  "slack_messages": [
+    "Can we document the Stripe setup?",
+    "Don’t forget to remove old payment flow docs"
+  ]
+}
