@@ -1,38 +1,53 @@
 import os
-from openai import OpenAI
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
-
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
-client = OpenAI(
-    base_url="https://openrouter.ai/api/v1",
-    api_key=OPENROUTER_API_KEY,
-)
+def plan_documents(jira, commits, slack, code_diff):
+    headers = {
+        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+        "Content-Type": "application/json"
+    }
 
-def plan_documents(jira, commits, slack):
-    try:
-        completion = client.chat.completions.create(
-            model="cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
-            messages=[
-                {
-                    "role": "user",
-                    "content": f"""
-You are a documentation planning agent. Based on:
+    prompt = f"""
+You are an expert software documentation planner.
 
-- Jira Ticket: {jira}
-- Git Commits: {commits}
-- Slack Messages: {slack}
+Use the following context to determine **which documents need to be written** based on recent GitHub commits and the related project discussion.
 
-List 2-3 documentation topics and a one-line reason for each.
-Respond in plain text.
-                    """
-                }
-            ]
-        )
-        
-        return completion.choices[0].message.content
-        
-    except Exception as e:
-        return f"Error: {str(e)}"
+---
+
+### 🧾 Jira Ticket:
+{jira}
+
+### 🧵 Slack Summary:
+{slack}
+
+### 🔀 Git Commit Messages:
+{commits}
+
+### 🧠 Code Diffs:
+{code_diff}
+
+---
+
+📋 Now, your job is to output a **list of documentation topics**. Each topic should be:
+
+1. Clear
+2. Actionable
+3. Closely related to what changed in the code
+
+Format as a bullet list like:
+- <title> — <1-sentence explanation>
+
+Avoid vague titles. Be specific about modules, classes, configs, or APIs changed.
+"""
+
+    payload = {
+        "model": "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
+        "messages": [{"role": "user", "content": prompt}]
+    }
+
+    res = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
+    return res.json()["choices"][0]["message"]["content"]

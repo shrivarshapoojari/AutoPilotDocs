@@ -48,7 +48,7 @@ def main():
     jira, commits, slack = data["jira_ticket"], data["git_commits"], data["slack_messages"]
 
     print("🔍 Planning documentation tasks...")
-    plan = plan_documents(jira, commits, slack)
+    plan =  plan_documents(jira, commits, slack, data["code_diff_context"])
     print("\n🧠 Plan:\n", plan)
 
     topics = extract_topics(plan)

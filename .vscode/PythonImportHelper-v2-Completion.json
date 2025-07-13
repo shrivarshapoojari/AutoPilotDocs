@@ -1,0 +1,261 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "OpenAI",
+        "importPath": "openai",
+        "description": "openai",
+        "isExtraImport": true,
+        "detail": "openai",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "load_input",
+        "importPath": "agents.perception_agent",
+        "description": "agents.perception_agent",
+        "isExtraImport": true,
+        "detail": "agents.perception_agent",
+        "documentation": {}
+    },
+    {
+        "label": "plan_documents",
+        "importPath": "agents.planning_agent",
+        "description": "agents.planning_agent",
+        "isExtraImport": true,
+        "detail": "agents.planning_agent",
+        "documentation": {}
+    },
+    {
+        "label": "generate_document",
+        "importPath": "agents.execution_agent",
+        "description": "agents.execution_agent",
+        "isExtraImport": true,
+        "detail": "agents.execution_agent",
+        "documentation": {}
+    },
+    {
+        "label": "verify_document",
+        "importPath": "agents.verifier_agent",
+        "description": "agents.verifier_agent",
+        "isExtraImport": true,
+        "detail": "agents.verifier_agent",
+        "documentation": {}
+    },
+    {
+        "label": "revise_document",
+        "importPath": "agents.revision_agent",
+        "description": "agents.revision_agent",
+        "isExtraImport": true,
+        "detail": "agents.revision_agent",
+        "documentation": {}
+    },
+    {
+        "label": "generate_document",
+        "kind": 2,
+        "importPath": "agents.execution_agent",
+        "description": "agents.execution_agent",
+        "peekOfCode": "def generate_document(topic, context):\n    try:\n        prompt = f\"\"\"\nWrite a full markdown document for: {topic}\nUse the following context:\n{context}\nMake it clear, structured, and professional.\n        \"\"\"\n        completion = client.chat.completions.create(\n            messages=[{\"role\": \"user\", \"content\": prompt}]",
+        "detail": "agents.execution_agent",
+        "documentation": {}
+    },
+    {
+        "label": "OPENROUTER_API_KEY",
+        "kind": 5,
+        "importPath": "agents.execution_agent",
+        "description": "agents.execution_agent",
+        "peekOfCode": "OPENROUTER_API_KEY = os.getenv(\"OPENROUTER_API_KEY\")\nclient = OpenAI(\n    base_url=\"https://openrouter.ai/api/v1\",\n    api_key=OPENROUTER_API_KEY,\n)\ndef generate_document(topic, context):\n    try:\n        prompt = f\"\"\"\nWrite a full markdown document for: {topic}\nUse the following context:",
+        "detail": "agents.execution_agent",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 5,
+        "importPath": "agents.execution_agent",
+        "description": "agents.execution_agent",
+        "peekOfCode": "client = OpenAI(\n    base_url=\"https://openrouter.ai/api/v1\",\n    api_key=OPENROUTER_API_KEY,\n)\ndef generate_document(topic, context):\n    try:\n        prompt = f\"\"\"\nWrite a full markdown document for: {topic}\nUse the following context:\n{context}",
+        "detail": "agents.execution_agent",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_code_context",
+        "kind": 2,
+        "importPath": "agents.perception_agent",
+        "description": "agents.perception_agent",
+        "peekOfCode": "def fetch_code_context():\n    headers = {\n        \"Authorization\": f\"Bearer {GITHUB_TOKEN}\",\n        \"Accept\": \"application/vnd.github.v3+json\"\n    }\n    # 📦 Step 1: Get recent commits\n    commits_url = f\"https://api.github.com/repos/{REPO}/commits\"\n    commits_res = requests.get(commits_url, headers=headers)\n    if commits_res.status_code != 200:\n        print(f\"GitHub API Error: {commits_res.status_code} - {commits_res.text}\")",
+        "detail": "agents.perception_agent",
+        "documentation": {}
+    },
+    {
+        "label": "load_input",
+        "kind": 2,
+        "importPath": "agents.perception_agent",
+        "description": "agents.perception_agent",
+        "peekOfCode": "def load_input(file_path=\"data/mock_input.json\"):\n    \"\"\"\n    Load input data. This function can load from file or fetch live data.\n    For now, it fetches live code context from GitHub.\n    \"\"\"\n    return fetch_code_context()",
+        "detail": "agents.perception_agent",
+        "documentation": {}
+    },
+    {
+        "label": "GITHUB_TOKEN",
+        "kind": 5,
+        "importPath": "agents.perception_agent",
+        "description": "agents.perception_agent",
+        "peekOfCode": "GITHUB_TOKEN = os.getenv(\"GITHUB_TOKEN\")\nREPO = \"shrivarshapoojari/CloudNote-Spring\"\ndef fetch_code_context():\n    headers = {\n        \"Authorization\": f\"Bearer {GITHUB_TOKEN}\",\n        \"Accept\": \"application/vnd.github.v3+json\"\n    }\n    # 📦 Step 1: Get recent commits\n    commits_url = f\"https://api.github.com/repos/{REPO}/commits\"\n    commits_res = requests.get(commits_url, headers=headers)",
+        "detail": "agents.perception_agent",
+        "documentation": {}
+    },
+    {
+        "label": "REPO",
+        "kind": 5,
+        "importPath": "agents.perception_agent",
+        "description": "agents.perception_agent",
+        "peekOfCode": "REPO = \"shrivarshapoojari/CloudNote-Spring\"\ndef fetch_code_context():\n    headers = {\n        \"Authorization\": f\"Bearer {GITHUB_TOKEN}\",\n        \"Accept\": \"application/vnd.github.v3+json\"\n    }\n    # 📦 Step 1: Get recent commits\n    commits_url = f\"https://api.github.com/repos/{REPO}/commits\"\n    commits_res = requests.get(commits_url, headers=headers)\n    if commits_res.status_code != 200:",
+        "detail": "agents.perception_agent",
+        "documentation": {}
+    },
+    {
+        "label": "plan_documents",
+        "kind": 2,
+        "importPath": "agents.planning_agent",
+        "description": "agents.planning_agent",
+        "peekOfCode": "def plan_documents(jira, commits, slack, code_diff):\n    headers = {\n        \"Authorization\": f\"Bearer {OPENROUTER_API_KEY}\",\n        \"Content-Type\": \"application/json\"\n    }\n    prompt = f\"\"\"\nYou are an expert software documentation planner.\nUse the following context to determine **which documents need to be written** based on recent GitHub commits and the related project discussion.\n---\n### 🧾 Jira Ticket:",
+        "detail": "agents.planning_agent",
+        "documentation": {}
+    },
+    {
+        "label": "OPENROUTER_API_KEY",
+        "kind": 5,
+        "importPath": "agents.planning_agent",
+        "description": "agents.planning_agent",
+        "peekOfCode": "OPENROUTER_API_KEY = os.getenv(\"OPENROUTER_API_KEY\")\ndef plan_documents(jira, commits, slack, code_diff):\n    headers = {\n        \"Authorization\": f\"Bearer {OPENROUTER_API_KEY}\",\n        \"Content-Type\": \"application/json\"\n    }\n    prompt = f\"\"\"\nYou are an expert software documentation planner.\nUse the following context to determine **which documents need to be written** based on recent GitHub commits and the related project discussion.\n---",
+        "detail": "agents.planning_agent",
+        "documentation": {}
+    },
+    {
+        "label": "revise_document",
+        "kind": 2,
+        "importPath": "agents.revision_agent",
+        "description": "agents.revision_agent",
+        "peekOfCode": "def revise_document(topic, original_doc, review_feedback):\n    headers = {\n        \"Authorization\": f\"Bearer {OPENROUTER_API_KEY}\",\n        \"Content-Type\": \"application/json\"\n    }\n    prompt = f\"\"\"\nYou are an expert documentation writer.\nYou wrote the following original documentation titled \"{topic}\":\n{original_doc}\nIt was reviewed with the following feedback:",
+        "detail": "agents.revision_agent",
+        "documentation": {}
+    },
+    {
+        "label": "OPENROUTER_API_KEY",
+        "kind": 5,
+        "importPath": "agents.revision_agent",
+        "description": "agents.revision_agent",
+        "peekOfCode": "OPENROUTER_API_KEY = os.getenv(\"OPENROUTER_API_KEY\")\ndef revise_document(topic, original_doc, review_feedback):\n    headers = {\n        \"Authorization\": f\"Bearer {OPENROUTER_API_KEY}\",\n        \"Content-Type\": \"application/json\"\n    }\n    prompt = f\"\"\"\nYou are an expert documentation writer.\nYou wrote the following original documentation titled \"{topic}\":\n{original_doc}",
+        "detail": "agents.revision_agent",
+        "documentation": {}
+    },
+    {
+        "label": "verify_document",
+        "kind": 2,
+        "importPath": "agents.verifier_agent",
+        "description": "agents.verifier_agent",
+        "peekOfCode": "def verify_document(topic, generated_doc, context_data):\n    headers = {\n        \"Authorization\": f\"Bearer {OPENROUTER_API_KEY}\",\n        \"Content-Type\": \"application/json\"\n    }\n    prompt = f\"\"\"\nYou are a senior documentation reviewer.\nReview the following document titled \"{topic}\" for correctness, clarity, and completeness.\n## Context:\n- Jira Ticket: {context_data['jira_ticket']}",
+        "detail": "agents.verifier_agent",
+        "documentation": {}
+    },
+    {
+        "label": "OPENROUTER_API_KEY",
+        "kind": 5,
+        "importPath": "agents.verifier_agent",
+        "description": "agents.verifier_agent",
+        "peekOfCode": "OPENROUTER_API_KEY = os.getenv(\"OPENROUTER_API_KEY\")\ndef verify_document(topic, generated_doc, context_data):\n    headers = {\n        \"Authorization\": f\"Bearer {OPENROUTER_API_KEY}\",\n        \"Content-Type\": \"application/json\"\n    }\n    prompt = f\"\"\"\nYou are a senior documentation reviewer.\nReview the following document titled \"{topic}\" for correctness, clarity, and completeness.\n## Context:",
+        "detail": "agents.verifier_agent",
+        "documentation": {}
+    },
+    {
+        "label": "sanitize_filename",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def sanitize_filename(filename: str) -> str:\n    \"\"\"\n    Sanitize a string to make it safe for use as a filename.\n    \"\"\"\n    # Remove or replace invalid characters for filenames\n    filename = re.sub(r'[<>:\"/\\\\|?*]', '', filename)\n    # Replace spaces with underscores\n    filename = filename.replace(' ', '_')\n    # Remove extra dots and asterisks\n    filename = re.sub(r'[.*]+', '', filename)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "extract_topics",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def extract_topics(plan_output: str) -> list[str]:\n    \"\"\"\n    Very lightweight parser:\n    • Looks for lines that start with a dash, number, or bullet,\n      then grabs the text up to a dash/colon or EOL.\n    • Adjust the regex if your Planning Agent formats lines differently.\n    \"\"\"\n    topics = []\n    for line in plan_output.strip().splitlines():\n        # Examples the regex catches:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def main():\n    data = load_input()\n    jira, commits, slack = data[\"jira_ticket\"], data[\"git_commits\"], data[\"slack_messages\"]\n    print(\"🔍 Planning documentation tasks...\")\n    plan =  plan_documents(jira, commits, slack, data[\"code_diff_context\"])\n    print(\"\\n🧠 Plan:\\n\", plan)\n    topics = extract_topics(plan)\n    if not topics:\n        print(\"⚠️  No topics detected — check Planning Agent output or tweak regex.\")\n        return",
+        "detail": "main",
+        "documentation": {}
+    }
+]
