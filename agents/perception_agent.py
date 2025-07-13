@@ -12,8 +12,7 @@ def fetch_code_context():
         "Authorization": f"Bearer {GITHUB_TOKEN}",
         "Accept": "application/vnd.github.v3+json"
     }
-
-    # 📦 Step 1: Get recent commits
+ 
     commits_url = f"https://api.github.com/repos/{REPO}/commits"
     commits_res = requests.get(commits_url, headers=headers)
     
@@ -58,18 +57,18 @@ def fetch_code_context():
             patch = file.get("patch", "[diff not available]")
             files_info.append(f"\n### {filename}\n```diff\n{patch}\n```")
 
-        # 👇 Combined code + metadata for each commit
+     
         code_entry = f"""
 ## Commit: {message}
 SHA: {sha}
 {''.join(files_info)}
         """
         code_context.append(code_entry)
-    print(code_context)
+    
     return {
-        "jira_ticket": "DOCGEN-42 | Add Stripe retry logic and clean up legacy flow",
-        "git_commits": [c["commit"]["message"] for c in commits_data[:3]],
-        "slack_messages": ["Team: remember to document retry logic + legacy removal"],
+        "jira_ticket": "CloudNotes improvements",
+        "git_commits": [c["commit"]["message"] for c in commits_data[:1]],
+        "slack_messages": ["Team: Cloud note updates"],
         "code_diff_context": "\n\n".join(code_context)
     }
 

@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
-
+MODEL=os.getenv("MODEL")
 def plan_documents(jira, commits, slack, code_diff):
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
@@ -45,9 +45,10 @@ Avoid vague titles. Be specific about modules, classes, configs, or APIs changed
 """
 
     payload = {
-        "model": "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
+        "model":  MODEL,
         "messages": [{"role": "user", "content": prompt}]
     }
 
     res = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
+    print(res)
     return res.json()["choices"][0]["message"]["content"]

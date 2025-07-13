@@ -31,8 +31,9 @@ def extract_topics(plan_output: str) -> list[str]:
     for line in plan_output.strip().splitlines():
         # Examples the regex catches:
         #   1. **Stripe Integration Setup** – explains ...
-        #   - Removing Legacy Payment Flow: details ...
-        m = re.match(r"^\s*\d+\.\s*\**(.*?)\**(?:\s*[—\-:–]|$)", line)
+        #   - **Removing Legacy Payment Flow** — details ...
+        #   • Some topic: description
+        m = re.match(r"^\s*[\-\*\•\d\.\)]\s*\**(.*?)\**(?:\s*[—\-:–]|$)", line)
         if m:
             topic = m.group(1).strip()
             # Remove any remaining markdown formatting and clean up
@@ -45,39 +46,40 @@ def extract_topics(plan_output: str) -> list[str]:
 
 def main():
     data = load_input()
+    
     jira, commits, slack = data["jira_ticket"], data["git_commits"], data["slack_messages"]
 
     print("🔍 Planning documentation tasks...")
     plan =  plan_documents(jira, commits, slack, data["code_diff_context"])
-    print("\n🧠 Plan:\n", plan)
+    print("\n Plan:\n", plan)
 
     topics = extract_topics(plan)
     if not topics:
-        print("⚠️  No topics detected — check Planning Agent output or tweak regex.")
+        print("  No topics detected — check Planning Agent output or tweak regex.")
         return
 
-    print("\n📋 Extracted topics:", topics)
+    print("\n Extracted topics:", topics)
 
     for topic in topics:
-        print(f"\n✍️  Generating document for: {topic}")
+        print(f"\n  Generating document for: {topic}")
         doc = generate_document(topic, data)
         filename = f"docs/{sanitize_filename(topic)}.md"
         with open(filename, "w", encoding="utf-8") as f:
             f.write(doc)
-        print(f"✅ Document saved → {filename}")
+        print(f" Document saved → {filename}")
         review = verify_document(topic, doc, data)
         review_filename = f"docs/review/review_{sanitize_filename(topic)}.md"
         with open(review_filename, "w", encoding="utf-8") as f:
             f.write(review)
-        print(f"🔍 Review saved → {review_filename}")
-        print(f"♻️ Revising document for: {topic} based on verifier feedback...")
+        print(f" Review saved → {review_filename}")
+        print(f" Revising document for: {topic} based on verifier feedback...")
 
         improved_doc = revise_document(topic, doc, review)
         improved_filename = f"docs/improved/improved_{sanitize_filename(topic)}.md"
         with open(improved_filename, "w", encoding="utf-8") as f:
             f.write(improved_doc)
 
-        print(f"✅ Improved doc saved → {improved_filename}")
+        print(f" Improved doc saved → {improved_filename}")
 
 if __name__ == "__main__":
     main()

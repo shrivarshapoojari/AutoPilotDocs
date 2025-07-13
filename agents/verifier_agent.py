@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
-
+MODEL=os.getenv("MODEL")
 def verify_document(topic, generated_doc, context_data):
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
@@ -33,7 +33,7 @@ Write a Markdown review with the following sections:
     """
 
     payload = {
-        "model": "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
+        "model":  MODEL,
         "messages": [{"role": "user", "content": prompt}]
     }
 

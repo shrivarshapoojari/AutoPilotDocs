@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+MODEL = os.getenv("MODEL")
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
@@ -23,10 +24,10 @@ Make it clear, structured, and professional.
         """
 
         completion = client.chat.completions.create(
-           
-           
+            model=MODEL,
             messages=[{"role": "user", "content": prompt}]
         )
+        print(f"completion {completion}")
         
         return completion.choices[0].message.content
     
